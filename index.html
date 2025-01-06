@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المطلوبين في الجزائر</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #2c2c2c;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #4caf50;
+            position: relative;
+        }
+
+        header h1 {
+            color: #4caf50;
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        /* تنسيق للعلم في أعلى اليمين */
+        header .flag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: auto;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        header .flag:hover {
+            opacity: 1;
+        }
+
+        .criminal-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .criminal-card {
+            background: #444;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #4caf50;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .criminal-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .criminal-card h3 {
+            color: #4caf50;
+            font-size: 1.5rem;
+        }
+
+        .criminal-card p {
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        .criminal-card button {
+            background: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .criminal-card button:hover {
+            background: #45a049;
+        }
+
+        .add-new-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .add-new-btn a {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .add-new-btn a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- علم الجزائر -->
+        <img src="img/dz-03.png" alt="علم الجزائر" class="flag">
+        
+        <h1>قائمة المطلوبين في الجزائر</h1>
+    </header>
+
+    <div class="criminal-list" id="criminal-list">
+        <!-- سيتم إضافة العناصر هنا باستخدام JavaScript -->
+    </div>
+
+    <div class="add-new-btn">
+        <a href="add-criminal.html">إضافة مطلوب جديد</a>
+    </div>
+
+    <script>
+        const criminalListContainer = document.getElementById('criminal-list');
+        const criminals = JSON.parse(localStorage.getItem('criminals') || '[]');
+
+        if (criminals.length === 0) {
+            criminalListContainer.innerHTML = '<p style="color: #fff; text-align: center;">لا يوجد أي مطلوبين مسجلين.</p>';
+        } else {
+            criminals.forEach((criminal, index) => {
+                const criminalCard = document.createElement('div');
+                criminalCard.classList.add('criminal-card');
+                criminalCard.innerHTML = `
+                    <img src="${criminal.photo}" alt="صورة ${criminal.name}">
+                    <h3>${criminal.name}</h3>
+                    <p><strong>الجريمة:</strong> ${criminal.crime}</p>
+                    <button onclick="viewDetails(${index})">عرض التفاصيل</button>
+                `;
+                criminalListContainer.appendChild(criminalCard);
+            });
+        }
+
+        function viewDetails(index) {
+            localStorage.setItem('currentCriminal', JSON.stringify(criminals[index]));
+            window.location.href = 'criminal-details.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المطلوب</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #2c2c2c;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-bottom: 2px solid #4caf50;
+        }
+
+        header h1 {
+            color: #4caf50;
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .criminal-details {
+            margin-top: 30px;
+            background: #444;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #4caf50;
+        }
+
+        .criminal-details img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            background: #4caf50;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-btn:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>تفاصيل المطلوب</h1>
+    </header>
+
+    <div class="criminal-details" id="criminal-details">
+        <!-- تفاصيل المطلوب ستعرض هنا باستخدام JavaScript -->
+    </div>
+
+    <a href="index.html" class="back-btn">العودة إلى القائمة</a>
+
+    <script>
+        const criminal = JSON.parse(localStorage.getItem('currentCriminal'));
+        const criminalDetailsContainer = document.getElementById('criminal-details');
+
+        criminalDetailsContainer.innerHTML = `
+            <img src="${criminal.photo}" alt="صورة ${criminal.name}">
+            <h3>${criminal.name}</h3>
+            <p><strong>الجريمة:</strong> ${criminal.crime}</p>
+            <p><strong>تفاصيل الجريمة:</strong> ${criminal.details}</p>
+            <p><strong>العمر:</strong> ${criminal.age}</p>
+            <p><strong>الموقع:</strong> ${criminal.location}</p>
+        `;
+    </script>
+</body>
+</html>
